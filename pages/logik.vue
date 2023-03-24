@@ -1,5 +1,6 @@
 <script lang="ts" setup>
 import ejs from 'ejs'
+import { footerStart, footerEnd, gridSTV, gridCIN, fixDecimal, forwardXDays } from '~/util/logik-includes.js'
 
 useHead({
   title: 'Logik',
@@ -28,7 +29,7 @@ onMounted(() => {
 const targetDataInput = ref('')
 
 const getTargetData = (html) => {
-  const targetDataRegex = /(targetData\.[a-zA-Z0-9]+)/gm;
+  const targetDataRegex = /(targetData\.[a-zA-Z0-9_-]+)/gm;
   
   const dataMatches = html.match(targetDataRegex);
   const uniqueFields = Array.from(new Set(dataMatches))
@@ -65,13 +66,25 @@ const dataObj = computed(() => {
   }
 })
 
+const inputHTML = computed(() => {
+  let processed = input.value
+                    .replace("<%@ include view='MirrorPageUrl' %>", 'https://www.sky.com/')
+                    .replace(/<%@\s*include\s*view='Footer_\w*START'\s*%>/gm, footerStart)
+                    .replace("<%@ include view='Footer_END' %>", footerEnd)
+                    .replace("<%@ include view='STV_Personalised_Hero_Grid_Master' %>", gridSTV)
+                    .replace("<%@ include view='CinemaWeekly_Personalised_Hero_Grid' %>", gridCIN)
+                    .replace("<%@ include view='fixDecimal' %>", fixDecimal)
+                    .replace("<%@ include view='forwardXDays' %>", forwardXDays)
+  return processed;
+})
+
 const output = ref('')
 const updateOutput = async () => {
   if (targetDataInput.value === '') {
     await getTargetData(input.value)
   }
   
-  output.value = ejs.render(input.value, dataObj.value)
+  output.value = ejs.render(inputHTML.value, dataObj.value)
 }
 
 watch(input, updateOutput)
@@ -79,15 +92,15 @@ watch(input, updateOutput)
 
 <template>
   <div class="grid grid-cols-[1fr_640px]">
-    <div class="relative">
+    <div class="relative flex flex-col">
       <textarea 
         v-if="targetDataInput" 
         v-model="targetDataInput" 
         @keyup="updateOutput" 
-        class="w-full resize-none bg-inherit">
+        class="w-full resize-none bg-inherit border-black dark:border-gray-100 border-r border-b p-1">
       </textarea>
       
-      <div id="editor" class="w-full h-screen"></div>
+      <div id="editor" class="w-full h-full"></div>
     </div>
 
     <iframe frameborder="0" class="w-full h-screen" :srcdoc="output"></iframe>
