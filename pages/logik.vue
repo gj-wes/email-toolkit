@@ -7,7 +7,7 @@ useHead({
   script: ['https://cdnjs.cloudflare.com/ajax/libs/ace/1.16.0/ace.js']
 })
 
-let editor;
+let editor: any;
 const input = ref('')
 
 // initialise ACE editor
@@ -28,7 +28,7 @@ onMounted(() => {
 
 const targetDataInput = ref('')
 
-const getTargetData = (html) => {
+const getTargetData = (html: string) => {
   const targetDataRegex = /(targetData\.[a-zA-Z0-9_-]+)/gm;
   
   const dataMatches = html.match(targetDataRegex);
@@ -59,7 +59,7 @@ const dataObj = computed(() => {
     message: {
       address: 'joe.bloggs@sky.uk'
     },
-    escapeUrl (num) {
+    escapeUrl (num: number) {
       return num
     },
     targetData

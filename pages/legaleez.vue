@@ -45,8 +45,8 @@ function cleanTheLegalTextOut () {
   outputText.value = addTheLinkBits(cleaned)
 }
 
-function addTheLinkBits (txt) {
-  const replacer = (match, offset, string) => {
+function addTheLinkBits (txt: string) {
+  const replacer = (match: string, offset: number, string: string) => {
     let url;
     if (!match.includes('https://') && !match.includes('www.')) {
       url = 'https://www.' + match
