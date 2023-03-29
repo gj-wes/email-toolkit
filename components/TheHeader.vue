@@ -14,10 +14,10 @@ const currentToolName = computed(() => {
 </script>
 
 <template>
-  <header class="flex justify-between py-2 px-5 border-b border-black dark:border-gray-100">
+  <header class="flex justify-between items-center py-2 px-5 border-b border-black dark:border-gray-100">
     <NuxtLink to="/">ETK</NuxtLink>
 
-    <h1 class="capitalize">
+    <h1 class="capitalize text-2xl font-bold">
       {{ currentToolName }}
     </h1>
 
