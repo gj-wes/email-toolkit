@@ -1,30 +1,16 @@
 <script lang="ts" setup>
 import ejs from 'ejs'
+import { VAceEditor } from 'vue3-ace-editor';
+import 'ace-builds/src-noconflict/mode-ejs';
+import 'ace-builds/src-noconflict/theme-monokai';
+
 import { footerStart, footerEnd, gridSTV, gridCIN, fixDecimal, forwardXDays } from '~/util/logik-includes.js'
 
 useHead({
-  title: 'Logik',
-  script: ['https://cdnjs.cloudflare.com/ajax/libs/ace/1.16.0/ace.js']
+  title: 'Logik'
 })
 
-let editor: any;
 const input = ref('')
-
-// initialise ACE editor
-onMounted(() => {
-  // ace imported from script and on the window
-  editor = ace.edit("editor");
-  editor.setTheme("ace/theme/monokai");
-  editor.getSession().setMode("ace/mode/ejs");
-  editor.getSession().setUseWrapMode(true);
-  editor.setOptions({ tabSize: 2})
-  editor.setValue('Paste HTML code here');
-  editor.focus();
-
-  editor.on('change', () => {
-    input.value = editor.getValue()
-  });
-})
 
 const targetDataInput = ref('')
 
@@ -93,6 +79,11 @@ const updateOutput = async () => {
 }
 
 watch(input, updateOutput)
+
+function editorInit(editor) {
+  // needed to init editor component
+  return;
+}
 </script>
 
 <template>
@@ -106,10 +97,18 @@ watch(input, updateOutput)
         class="w-full resize-none bg-inherit border-black dark:border-gray-100 border-r border-b p-1 shrink-0">
       </textarea>
       
-      <div id="editor" class="w-full h-full"></div>
+      <ClientOnly>
+        <v-ace-editor
+        v-model:value="input"
+        @init="editorInit"
+        lang="ejs"
+        theme="monokai"
+        wrap
+        style="height:100%" />
+      </ClientOnly>
     </div>
 
-    <iframe frameborder="0" class="w-full h-screen" :srcdoc="output"></iframe>
+    <iframe frameborder="0" class="w-full h-full" :srcdoc="output"></iframe>
   </div>
 </template>
 
