@@ -92,15 +92,13 @@ function editorInit(editor) {
         class="w-full bg-inherit border-black dark:border-gray-100 border-r border-b p-1 shrink-0">
       </textarea>
       
-      <ClientOnly>
-        <v-ace-editor
-        v-model:value="input"
-        @init="editorInit"
-        lang="ejs"
-        theme="monokai"
-        wrap
-        style="height:100%" />
-      </ClientOnly>
+      <v-ace-editor
+      v-model:value="input"
+      @init="editorInit"
+      lang="ejs"
+      theme="monokai"
+      wrap
+      style="height:100%" />
     </div>
 
     <iframe frameborder="0" class="w-full h-full" :srcdoc="output"></iframe>
