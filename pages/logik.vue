@@ -64,17 +64,12 @@ const inputHTML = computed(() => {
   return processed;
 })
 
-const dataTextarea = ref(null)
-function updateTextareaHeight (e) {
-  e.style.height = `${e.scrollHeight}px`
-}
-
 const output = ref('')
 const updateOutput = async () => {
   if (targetDataInput.value === '') {
     await getTargetData(input.value)
   }
-  updateTextareaHeight(dataTextarea.value)
+
   output.value = ejs.render(inputHTML.value, dataObj.value)
 }
 
@@ -94,7 +89,7 @@ function editorInit(editor) {
         v-model="targetDataInput" 
         @keyup="updateOutput" 
         ref="dataTextarea"
-        class="w-full resize-none bg-inherit border-black dark:border-gray-100 border-r border-b p-1 shrink-0">
+        class="w-full bg-inherit border-black dark:border-gray-100 border-r border-b p-1 shrink-0">
       </textarea>
       
       <ClientOnly>
