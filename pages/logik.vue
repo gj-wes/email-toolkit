@@ -1,4 +1,5 @@
 <script lang="ts" setup>
+// @ts-ignore
 import ejs from 'ejs'
 import { VAceEditor } from 'vue3-ace-editor';
 import 'ace-builds/src-noconflict/mode-ejs';
@@ -24,17 +25,28 @@ const getTargetData = (html: string) => {
   targetDataInput.value = JSON.stringify(flags)
 }
 
-const dataObj = computed(() => {
-  let tData = targetDataInput.value !== '{}' ? JSON.parse(targetDataInput.value) : null
+const region = ref('GBP')
+function toggleRegion() {
+  region.value = region.value === "GBP" ? "EUR" : "GBP"
+  updateOutput()
+}
+const regionBtnText = computed(() => {
+  return region.value === "GBP" ? "UK" : "ROI"
+})
 
+const dataObj = computed(() => {
+  const tData = targetDataInput.value !== '{}' ? JSON.parse(targetDataInput.value) : null
+  const firstName = region.value === 'GBP' ? 'Joe' : 'Jane'
+  const surname = region.value === 'GBP' ? 'Bloggs' : 'Doe'
+  
   const recipient = {
     recipient: {
       rcpContactPIIContactInfo: {
-        cb_name_forename: 'Joe',
-        cb_name_surname: 'Bloggs',
+        cb_name_forename: firstName,
+        cb_name_surname: surname,
       },
       rcpAcctAccountDimInfo: {
-        currency_code: 'GBP'
+        currency_code: region.value
       },
       rcpAccountKeys: {
         sky_id: '666'
@@ -71,7 +83,7 @@ const inputHTML = computed(() => {
 })
 
 const output = ref('')
-const updateOutput = async () => {
+async function updateOutput() {
   if (targetDataInput.value === '{}') {
     await getTargetData(input.value)
   }
@@ -86,7 +98,7 @@ function editorInit(editor: any) {
   return;
 }
 
-function clear () {
+function clear() {
   input.value = ''
   output.value = ''
   targetDataInput.value = '{}'
@@ -111,6 +123,7 @@ function clear () {
       wrap
       style="height:100%" />
 
+      <button v-if="input" class="absolute bottom-20 right-8 text-xl rounded px-2 place-self-center uppercase leading-8 text-white bg-blue-600 hover:bg-blue-800 border-none cursor-pointer" @click="toggleRegion">{{ regionBtnText }}</button>
       <button v-if="input" class="absolute bottom-8 right-8 text-xl rounded px-2 place-self-center uppercase leading-8 text-white bg-blue-600 hover:bg-blue-800 border-none cursor-pointer" @click="clear">Clear</button>
     </div>
 

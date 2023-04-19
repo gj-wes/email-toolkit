@@ -25,7 +25,12 @@ export const footerStart = `<table border="0" cellpadding="0" cellspacing="0" ro
       <br><br>
 `
 
-export const footerEnd = `&copy; ${new Date().getFullYear()} Sky UK Ltd. Sky UK Ltd (company no. 02906991) has its registered office at Grant Way, Isleworth, Middlesex TW7&nbsp;5QD.
+export const footerEnd = `<% if (recipient.rcpAcctAccountDimInfo.currency_code === "GBP") {%>
+  &copy; ${new Date().getFullYear()} Sky UK Ltd. Sky UK Ltd (company no. 02906991) has its registered office at Grant Way, Isleworth, Middlesex TW7&nbsp;5QD.
+<%}%>
+<% if (recipient.rcpAcctAccountDimInfo.currency_code === "EUR") {%>
+  &copy; ${new Date().getFullYear()} Sky Ireland Limited, private company limited by shares, registered in Ireland under No. 547787. Registered address: Fifth Floor, One Burlington Plaza, Burlington Road, Dublin 4, D04&nbsp;RH96. Directors:&nbsp;J.D.&nbsp;Buckley, R.&nbsp;Watton.
+<%}%>
 </p>
 </td>
 </tr>
