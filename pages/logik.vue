@@ -12,7 +12,7 @@ useHead({
 
 const input = ref('')
 
-const targetDataInput = ref('')
+const targetDataInput = ref('{}')
 
 const getTargetData = (html: string) => {
   const targetDataRegex = /(targetData\.[a-zA-Z0-9_-]+)/gm;
@@ -25,8 +25,9 @@ const getTargetData = (html: string) => {
 }
 
 const dataObj = computed(() => {
-  let targetData = JSON.parse(targetDataInput.value)
-  return {
+  let tData = targetDataInput.value !== '{}' ? JSON.parse(targetDataInput.value) : null
+
+  const recipient = {
     recipient: {
       rcpContactPIIContactInfo: {
         cb_name_forename: 'Joe',
@@ -48,8 +49,12 @@ const dataObj = computed(() => {
     escapeUrl (num: number) {
       return num
     },
-    targetData
+    targetData: {
+      ...tData
+    }
   }
+
+  return recipient
 })
 
 const inputHTML = computed(() => {
@@ -67,7 +72,7 @@ const inputHTML = computed(() => {
 
 const output = ref('')
 const updateOutput = async () => {
-  if (targetDataInput.value === '') {
+  if (targetDataInput.value === '{}') {
     await getTargetData(input.value)
   }
 
@@ -76,9 +81,15 @@ const updateOutput = async () => {
 
 watch(input, updateOutput)
 
-function editorInit(editor) {
+function editorInit(editor: any) {
   // needed to init editor component
   return;
+}
+
+function clear () {
+  input.value = ''
+  output.value = ''
+  targetDataInput.value = '{}'
 }
 </script>
 
@@ -86,7 +97,6 @@ function editorInit(editor) {
   <div class="grid grid-cols-[1fr_640px]">
     <div class="relative flex flex-col">
       <textarea 
-        v-if="targetDataInput" 
         v-model="targetDataInput" 
         @keyup="updateOutput" 
         ref="dataTextarea"
@@ -100,6 +110,8 @@ function editorInit(editor) {
       theme="monokai"
       wrap
       style="height:100%" />
+
+      <button v-if="input" class="absolute bottom-8 right-8 text-xl rounded px-2 place-self-center uppercase leading-8 text-white bg-blue-600 hover:bg-blue-800 border-none cursor-pointer" @click="clear">Clear</button>
     </div>
 
     <iframe frameborder="0" class="w-full h-full" :srcdoc="output"></iframe>
