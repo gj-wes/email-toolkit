@@ -4,7 +4,7 @@ import { VAceEditor } from 'vue3-ace-editor';
 import 'ace-builds/src-noconflict/mode-ejs';
 import 'ace-builds/src-noconflict/theme-monokai';
 
-import { footerStart, footerEnd, gridSTV, gridCIN, fixDecimal, forwardXDays } from '~/util/logik-includes.js'
+import { footerStart, footerEnd, gridSTV, gridCIN, cinWeeklyMovies, fixDecimal, forwardXDays } from '~/util/logik-includes.js'
 
 useHead({
   title: 'Logik'
@@ -59,6 +59,7 @@ const inputHTML = computed(() => {
                     .replace("<%@ include view='Footer_END' %>", footerEnd)
                     .replace("<%@ include view='STV_Personalised_Hero_Grid_Master' %>", gridSTV)
                     .replace("<%@ include view='CinemaWeekly_Personalised_Hero_Grid' %>", gridCIN)
+                    .replace("<%@ include view='CinemaWeekly_MoviesFromData' %>", cinWeeklyMovies)
                     .replace("<%@ include view='fixDecimal' %>", fixDecimal)
                     .replace("<%@ include view='forwardXDays' %>", forwardXDays)
   return processed;

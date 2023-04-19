@@ -243,6 +243,22 @@ export const gridCIN = `<div>
 </div>
 </div>`
 
+export const cinWeeklyMovies = `<table align="center" cellspacing="0" cellpadding="0" border="0" width="580" style="width: 580px;" role="presentation" class="deviceWidth90">
+<tr>
+  <th style="width: 285px;" class="w-auto">
+    <a href="https://www.sky.com/" target="_blank" style="color: #ffffff;">
+      <img src="https://via.placeholder.com/285x380" alt="" border="0" style="display: block;" class="deviceWidth">
+    </a>
+  </th>
+  <th style="width:10px;">&nbsp;</th>
+  <th style="width: 285px;" class="w-auto">
+    <a href="https://www.sky.com/" target="_blank" style="color: #ffffff;">
+      <img src="https://via.placeholder.com/285x380" alt="" border="0" style="display: block;" class="deviceWidth">
+    </a>
+  </th>
+</tr>
+</table>`
+
 export const fixDecimal = `<%
 function fixDecimal(num) {
   if (!num) return "XX";
