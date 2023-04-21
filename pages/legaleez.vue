@@ -103,12 +103,13 @@ useHead({
       </div>
     </div>
 
-    <button class="place-self-center uppercase leading-8 text-white bg-blue-600 hover:bg-blue-800 border-none rounded-full cursor-pointer w-56" @click="clear">
+    <TheButton class="place-self-center" @click="clear">
       clear all
-    </button>
-    <button class="place-self-center uppercase leading-8 text-white bg-blue-600 hover:bg-blue-800 border-none rounded-full cursor-pointer w-56" @click="clipboardCopy">
+    </TheButton>
+
+    <TheButton class="place-self-center" @click="clipboardCopy">
       {{ copyBtnText }}
-    </button>
+    </TheButton>
     
     <textarea v-model="inputText" class="resize-none p-1 text-inherit bg-white dark:bg-neutral-700 dark:border-gray-100 border-black border" spellcheck="false" autofocus></textarea>
     <textarea v-model="outputText" class="resize-none p-1 text-inherit bg-white dark:bg-neutral-700 dark:border-gray-100 border-black border" spellcheck="false"></textarea>

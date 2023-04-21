@@ -39,7 +39,10 @@ const downloadAllClick = () => {
   <main class="grid grid-cols gap-8 p-8 place-content-center">
     <STVHeaderItem v-for="(item, ind) of sundayTVItems" :filename="item" :id="ind" :key="ind"/>
   </main>
-  <button class="fixed bottom-8 right-8 text-xl rounded px-2 place-self-center uppercase leading-8 text-white bg-blue-600 hover:bg-blue-800 border-none cursor-pointer" @click.prevent="downloadAllClick">Download all</button>
+
+  <TheButton class="fixed bottom-8 right-8" @click.prevent="downloadAllClick">
+    Download all
+  </TheButton>
 </template>
 
 <style scoped>

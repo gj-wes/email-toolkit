@@ -123,8 +123,12 @@ function clear() {
       wrap
       style="height:100%" />
 
-      <button v-if="input" class="absolute bottom-20 right-8 text-xl rounded px-2 place-self-center uppercase leading-8 text-white bg-blue-600 hover:bg-blue-800 border-none cursor-pointer" @click="toggleRegion">{{ regionBtnText }}</button>
-      <button v-if="input" class="absolute bottom-8 right-8 text-xl rounded px-2 place-self-center uppercase leading-8 text-white bg-blue-600 hover:bg-blue-800 border-none cursor-pointer" @click="clear">Clear</button>
+      <TheButton v-if="input" class="absolute bottom-20 right-8" @click="toggleRegion">
+        {{ regionBtnText }}
+      </TheButton>
+      <TheButton v-if="input" class="absolute bottom-8 right-8" @click="clear">
+        Clear
+      </TheButton>
     </div>
 
     <iframe frameborder="0" class="w-full h-full" :srcdoc="output"></iframe>
