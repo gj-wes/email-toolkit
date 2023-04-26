@@ -1,9 +1,6 @@
 <script lang="ts" setup>
 // @ts-ignore
 import ejs from 'ejs'
-import { VAceEditor } from 'vue3-ace-editor';
-import 'ace-builds/src-noconflict/mode-ejs';
-import 'ace-builds/src-noconflict/theme-monokai';
 
 import { footerStart, footerEnd, gridSTV, gridCIN, cinWeeklyMovies, fixDecimal, forwardXDays } from '~/util/logik-includes.js'
 
@@ -12,7 +9,9 @@ useHead({
 })
 
 const input = ref('')
-
+function editorUpdate(text: string) {
+  input.value = text
+}
 const targetDataInput = ref('{}')
 
 const getTargetData = (html: string) => {
@@ -22,7 +21,7 @@ const getTargetData = (html: string) => {
   const uniqueFields = Array.from(new Set(dataMatches))
 
   const flags = uniqueFields.reduce((a, v) => ({...a, [v.slice(11)]:''}), {})
-  targetDataInput.value = JSON.stringify(flags)
+  targetDataInput.value = JSON.stringify(flags, null, 1)
 }
 
 const region = ref('GBP')
@@ -93,12 +92,7 @@ async function updateOutput() {
 
 watch(input, updateOutput)
 
-function editorInit(editor: any) {
-  // needed to init editor component
-  return;
-}
-
-function clear() {
+function clearAll() {
   input.value = ''
   output.value = ''
   targetDataInput.value = '{}'
@@ -112,22 +106,14 @@ function clear() {
         v-model="targetDataInput" 
         @keyup="updateOutput" 
         ref="dataTextarea"
+        rows="5"
         class="w-full bg-inherit border-black dark:border-gray-100 border-r border-b p-1 shrink-0">
       </textarea>
       
-      <v-ace-editor
-      v-model:value="input"
-      @init="editorInit"
-      lang="ejs"
-      theme="monokai"
-      wrap
-      style="height:100%" />
+      <Editor @update="editorUpdate" @clear="clearAll"/>
 
       <TheButton v-if="input" class="absolute bottom-20 right-8" @click="toggleRegion">
         {{ regionBtnText }}
-      </TheButton>
-      <TheButton v-if="input" class="absolute bottom-8 right-8" @click="clear">
-        Clear
       </TheButton>
     </div>
 
