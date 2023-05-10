@@ -86,7 +86,7 @@ async function updateOutput() {
   if (targetDataInput.value === '{}') {
     await getTargetData(input.value)
   }
-
+  // MAKE OUTPUT RED IF ERROR IN RENDER!!
   output.value = ejs.render(inputHTML.value, dataObj.value)
 }
 
