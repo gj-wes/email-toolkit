@@ -82,12 +82,19 @@ const inputHTML = computed(() => {
 })
 
 const output = ref('')
+const outputFrame = ref()
 async function updateOutput() {
   if (targetDataInput.value === '{}') {
     await getTargetData(input.value)
   }
-  // MAKE OUTPUT RED IF ERROR IN RENDER!!
-  output.value = ejs.render(inputHTML.value, dataObj.value)
+
+  try {
+    output.value = ejs.render(inputHTML.value, dataObj.value)
+    outputFrame.value.style.backgroundColor = "initial"
+  } catch (e) {
+    output.value = e.stack;
+    outputFrame.value.style.backgroundColor = "rgb(235, 64, 52)"
+  }
 }
 
 watch(input, updateOutput)
@@ -117,7 +124,7 @@ function clearAll() {
       </TheButton>
     </div>
 
-    <iframe frameborder="0" class="w-full h-full" :srcdoc="output"></iframe>
+    <iframe ref="outputFrame" frameborder="0" class="w-full h-full" :srcdoc="output"></iframe>
   </div>
 </template>
 
