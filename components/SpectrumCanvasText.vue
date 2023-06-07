@@ -71,9 +71,13 @@ function updateCanvas() {
 
   }
 
+  updateDownloadUrl()
 }
 
-const downloadUrl = computed(() => props.inputText !== '' ? canvasRef.value.toDataURL('image/png') : null)
+const downloadUrl = ref('')
+const updateDownloadUrl = () => {
+  downloadUrl.value = canvasRef.value.toDataURL('image/png')
+}
 
 // Boolean attribute for multiple download on STV headline generator
 const hascopy = computed(() => props.inputText !== '' ? true : false)
