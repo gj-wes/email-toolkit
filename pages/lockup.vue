@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import * as spectrum from '~/util/spectrumGradients.js'
+
 useHead({
   title: 'Lockup'
 })
@@ -53,18 +55,12 @@ const crossoutStyles = computed(() => ({
 }))
 
 
-const spectrum = ref('brand')
-const gradients = {
-  'brand': 'rgb(255, 158, 0) 0%, rgb(255, 0, 0) 25%, rgb(181, 0, 125) 50%, rgb(33, 66, 156) 75%, rgb(0, 113, 255) 100%',
-  'tv': 'rgb(2, 136, 225), rgb(82, 218, 247)',
-  'broadband': 'rgb(127, 0, 224), rgb(234, 0, 178)',
-  'mobile': 'rgb(255,0,165) 10%, rgb(255,10,80) 50%, rgb(255,100,0) 90%'
-}
+const gradientSelected = ref('brandMain')
 
 const priceStyles = computed(() => ({
   margin: 0,
   fontSize: priceFontSize.value + 'px',
-  backgroundImage: `linear-gradient(to right, ${gradients[spectrum.value]})`,
+  backgroundImage: `linear-gradient(to right, ${spectrum[gradientSelected.value].string})`,
   webkitTextFillColor: 'transparent',
   backgroundClip: 'text',
   webkitBackgroundClip: 'text',
@@ -151,8 +147,9 @@ async function generate() {
       <div>
         <div>
           <label class="block" for="spectrum">Gradient:</label>
-          <select class="mb-4 pl-1 border border-gray-400 bg-inherit" name="spectrum" id="spectrum" v-model="spectrum">
-            <option value="brand">Standard spectrum</option>
+          <select class="mb-4 pl-1 border border-gray-400 bg-inherit" name="spectrum" id="spectrum" v-model="gradientSelected">
+            <option value="brandMain">Standard spectrum</option>
+            <option value="brandMainOld">Spectrum old</option>
             <option value="mobile">Mobile</option>
             <option value="broadband">Broadband</option>
             <option value="tv">TV</option>

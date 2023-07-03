@@ -24,7 +24,8 @@ export const brandMain = {
       offset: 0.95,
       colour: "#19a0ff"
     }
-  ]
+  ],
+  string: '#ff8c00 5%, #ff0064 25%, #ff00a0 40%, #8c28ff 60%, #0023ff 80%, #19a0ff 95%'
 }
 
 export const brandMainOld = {
@@ -49,7 +50,8 @@ export const brandMainOld = {
       offset: 1,
       colour: "#0071ff"
     }
-  ]
+  ],
+  string: '#ff9e00 0%, #ff0000 35%, #b5007d 60%, #21429c 85%, #0071ff'
 }
 
 export const mobile = {
@@ -66,7 +68,8 @@ export const mobile = {
       offset: 0.9,
       colour: "#ff6400"
     }
-  ]
+  ],
+  string: '#ff00a6 10%, #ff0a4f 50%, #ff6400 90%'
 }
 
 export const broadband = {
@@ -79,7 +82,8 @@ export const broadband = {
       offset: 1,
       colour: "#ea00b3"
     }
-  ]
+  ],
+  string: '#7f00e0, #ea00b3'
 }
 
 export const tv = {
@@ -92,5 +96,6 @@ export const tv = {
       offset: 1,
       colour: "#52daf7"
     }
-  ]
+  ],
+  string: '#0288e1, #52daf7'
 }
