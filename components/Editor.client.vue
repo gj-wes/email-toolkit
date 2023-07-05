@@ -32,7 +32,7 @@ function clear() {
   wrap
   style="height:100%" />
 
-  <TheButton v-if="input" class="absolute bottom-8 right-8" @click="clear">
+  <UButton v-if="input" class="absolute bottom-8 right-8" @click="clear">
     Clear
-  </TheButton>
+  </UButton>
 </template>

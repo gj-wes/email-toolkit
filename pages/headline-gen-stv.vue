@@ -40,9 +40,9 @@ const downloadAllClick = () => {
     <STVHeaderItem v-for="(item, ind) of sundayTVItems" :filename="item" :id="ind" :key="ind"/>
   </main>
 
-  <TheButton class="fixed bottom-8 right-8" @click.prevent="downloadAllClick">
+  <UButton class="fixed bottom-8 right-8" @click.prevent="downloadAllClick">
     Download all
-  </TheButton>
+  </UButton>
 </template>
 
 <style scoped>

@@ -119,9 +119,9 @@ function clearAll() {
       
       <Editor @update="editorUpdate" @clear="clearAll"/>
 
-      <TheButton v-if="input" class="absolute bottom-20 right-8" @click="toggleRegion">
+      <UButton v-if="input" class="absolute bottom-20 right-8" @click="toggleRegion">
         {{ regionBtnText }}
-      </TheButton>
+      </UButton>
     </div>
 
     <iframe ref="outputFrame" frameborder="0" class="w-full h-full" :srcdoc="output"></iframe>
