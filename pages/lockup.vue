@@ -55,7 +55,7 @@ const crossoutStyles = computed(() => ({
 }))
 
 
-const gradientSelected = ref('brandMain')
+const gradientSelected = ref('Spectrum')
 
 const priceStyles = computed(() => ({
   margin: 0,
@@ -85,155 +85,110 @@ async function generate() {
 
 </script>
 <template>
-  <div class="grid grid-cols-2">
-
-    <div class="justify-self-center self-center flex flex-col grid grid-cols-2 gap-6">
-      <div>
-
+  <UContainer class="self-center">
+    <div class="grid grid-cols-2 gap-4">
+  
+      <div class="justify-self-center self-center grid grid-cols-2 gap-6">
         <div>
-          <label class="block" for="filename">Filename:</label>
-          <input class="mb-4 pl-1 border border-gray-400 bg-inherit" id="filename" type="text" v-model="filename">
-        </div>
   
-        <div>
-          <label class="block" for="containerWidth">Image Width:</label>
-          <input class="mb-4 pl-1 border border-gray-400 bg-inherit" id="containerWidth" type="number" v-model="containerWidth">
-        </div>
+          <UFormGroup label="Filename:">
+            <UInput v-model="filename" />
+          </UFormGroup>
   
-        <div>
-          <label class="block" for="containerHeight">Image Height:</label>
-          <input class="mb-4 pl-1 border border-gray-400 bg-inherit" id="containerHeight" type="number" v-model="containerHeight">
-        </div>
-  
-        <div>
-          <label class="block" for="price">Price:</label>
-          <input class="mb-4 pl-1 border border-gray-400 bg-inherit" id="price" type="text" v-model="price">
-        </div>
-  
-        <div>
-          <label class="block" for="rack">Rack:</label>
-          <input class="mb-4 pl-1 border border-gray-400 bg-inherit" id="rack" type="text" v-model="rack">
-        </div>
-  
-        <fieldset class="mb-4" name="fontWeight">
-          <legend>Weight:</legend>
-  
-          <div>
-            <input v-model="weight" type="radio" name="weight" value="bold" id="fontBold" checked>
-            <label for="fontBold" class="ml-2">Bold</label>
-          </div>
-  
-          <div>
-            <input v-model="weight" type="radio" name="weight" id="fontReg" value="reg">
-            <label for="fontReg" class="ml-2">Regular</label>
-          </div>
-        </fieldset>
-  
-        <fieldset class="mb-4" name="currency">
-          <legend>Currency:</legend>
-  
-          <div>
-            <input v-model="denom" type="radio" name="denom" value="gbp" id="currGBP" checked>
-            <label for="currGBP" class="ml-2">£</label>
-          </div>
-  
-          <div>
-            <input v-model="denom" type="radio" name="denom" id="currEUR" value="eur">
-            <label for="currEUR" class="ml-2">€</label>
-          </div>
-        </fieldset>
-      </div>
-
-      <div>
-        <div>
-          <label class="block" for="spectrum">Gradient:</label>
-          <select class="mb-4 pl-1 border border-gray-400 bg-inherit" name="spectrum" id="spectrum" v-model="gradientSelected">
-            <option value="brandMain">Standard spectrum</option>
-            <option value="brandMainOld">Spectrum old</option>
-            <option value="mobile">Mobile</option>
-            <option value="broadband">Broadband</option>
-            <option value="tv">TV</option>
-          </select>
-        </div>
-  
-        <div>
-          <label class="block" for="priceFontSize">Price Font Size:</label>
-          <input class="mb-4 pl-1 border border-gray-400 bg-inherit" id="priceFontSize" type="number" v-model="priceFontSize">
-        </div>
+          <UFormGroup label="Image Width:">
+            <UInput v-model="containerWidth" type="number"/>
+          </UFormGroup>
     
-        <div>
-          <label class="block" for="denomFontSize">Currency Font Size:</label>
-          <input class="mb-4 pl-1 border border-gray-400 bg-inherit" id="denomFontSize" type="number" v-model="denomFontSize">
-        </div>
+          <UFormGroup label="Image Height:">
+            <UInput v-model="containerHeight" type="number"/>
+          </UFormGroup>
   
-        <div>
-          <label class="block" for="rackFontSize">Rack Font Size:</label>
-          <input class="mb-4 pl-1 border border-gray-400 bg-inherit" id="rackFontSize" type="number" v-model="rackFontSize">
-        </div>
+          <UFormGroup label="Price:">
+            <UInput v-model="price" />
+          </UFormGroup>
   
-        <div>
-          <label class="block" for="lockupOffset">Offset:</label>
-          <input class="mb-4 pl-1 border border-gray-400 bg-inherit" id="lockupOffset" type="number" v-model="lockupOffset">
-        </div>
-  
-        <div>
-          <label class="block" for="hideRack">Hide Rack Price:</label>
-          <input type="checkbox" v-model="hideRack" id="hideRack">
-        </div>
-  
-        <fieldset class="mb-4" name="scale">
-          <legend>Scale:</legend>
-  
-          <div>
-            <input v-model="scale" type="radio" name="scale" value="1" id="scalex1" checked>
-            <label for="scalex1" class="ml-2">1x</label>
-          </div>
-  
-          <div>
-            <input v-model="scale" type="radio" name="scale" value="1.5" id="scalex15">
-            <label for="scalex15" class="ml-2">1.5x</label>
-          </div>
+          <UFormGroup label="Rack:">
+            <UInput v-model="rack" />
+          </UFormGroup>
           
-          <div>
-            <input v-model="scale" type="radio" name="scale" value="2" id="scalex2">
-            <label for="scalex2" class="ml-2">2x</label>
-          </div>
-       </fieldset>
-      </div>
-
-      <TheButton @click="generate">Generate</TheButton>
-
-
-    </div>
-
-    <div class="justify-self-center self-center">
-
-      <p>
-        Preview:
-      </p>
-      
-      <div class="border border-gray-400">
-        <div ref="capture" :style="containerStyles">
-          <div :style="lockupStyles">
-            <p v-if="!hideRack" :style="rackStyles">
-              {{ denomOutput }}{{ rack }}
-              <div :style="crossoutStyles"></div>
-            </p>
-            <p :style="priceStyles">
-              <span class="denom" :style="denomStyles">{{ denomOutput }}</span><span :style="fontWeight">{{ price }}</span>
-            </p>
-          </div>
+          <UFormGroup label="Weight:">
+            <URadio v-model="weight" name="weight" value="bold" label="Bold" />
+            <URadio v-model="weight" name="weight" value="reg" label="Regular" />
+          </UFormGroup>
+  
+          <UFormGroup label="Currency:">
+            <URadio v-model="denom" name="denom" value="gbp" label="£" />
+            <URadio v-model="denom" name="denom" value="eur" label="€" />
+          </UFormGroup>
         </div>
+  
+        <div>
+  
+          <UFormGroup label="Gradient:">
+            <USelectMenu v-model="gradientSelected" :options="spectrum.gradientOptions" />
+          </UFormGroup>
+  
+          <UFormGroup label="Price Font Size:">
+            <UInput v-model="priceFontSize" type="number"/>
+          </UFormGroup>
+  
+          <UFormGroup label="Currency Font Size:">
+            <UInput v-model="denomFontSize" type="number"/>
+          </UFormGroup>
+  
+          <UFormGroup label="Rack Font Size:">
+            <UInput v-model="rackFontSize" type="number"/>
+          </UFormGroup>
+  
+          <UFormGroup label="Offset:">
+            <UInput v-model="lockupOffset" type="number"/>
+          </UFormGroup>
+  
+          <UFormGroup label="Hide Rack Price:">
+            <UCheckbox v-model="hideRack" name="notifications"/>
+          </UFormGroup>
+  
+         <UFormGroup label="Scale:">
+            <URadio v-model="scale" name="scale" value="1" label="1x" />
+            <URadio v-model="scale" name="scale" value="1.5" label="1.5x" />
+            <URadio v-model="scale" name="scale" value="2" label="2x" />
+          </UFormGroup>
+        </div>
+  
+        <UButton @click="generate">
+          Generate
+        </UButton>
+  
+  
       </div>
-
-      <p>
-        Image:
-      </p>
-      <a v-if="output" :href="output" :download="filename" class="download">
-        <img :src="output" alt="" class="border border-gray-400">
-      </a>
-
+  
+      <div class="justify-self-center self-center">
+  
+        <UFormGroup label="Preview:">
+          <div class="border border-gray-400">
+            <div ref="capture" :style="containerStyles">
+              <div :style="lockupStyles">
+                <p v-if="!hideRack" :style="rackStyles">
+                  {{ denomOutput }}{{ rack }}
+                  <div :style="crossoutStyles"></div>
+                </p>
+                <p :style="priceStyles">
+                  <span class="denom" :style="denomStyles">{{ denomOutput }}</span><span :style="fontWeight">{{ price }}</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </UFormGroup>
+        
+  
+        <UFormGroup label="Image (click to download):" v-if="output">
+          <a :href="output" :download="filename" class="download">
+            <img :src="output" alt="" class="border border-gray-400">
+          </a>
+        </UFormGroup>
+  
+      </div>
+  
     </div>
-
-  </div>
+  </UContainer>
 </template>

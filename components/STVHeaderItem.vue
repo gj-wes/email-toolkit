@@ -44,7 +44,7 @@ onMounted(() => {
         :fontSize="text.fontSize"
         :lineHeight="text.lineHeight"
         :width="canvas.width"
-        gradient="brandMainOld"
+        gradient="SpectrumOld"
         :filename="filenameText"
       />
 

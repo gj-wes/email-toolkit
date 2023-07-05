@@ -1,4 +1,6 @@
-export const brandMain = {
+export const gradientOptions = ['Spectrum', 'SpectrumOld','Mobile','Broadband','TV']
+
+export const Spectrum = {
   stops: [
     {
       offset: 0.05,
@@ -28,7 +30,7 @@ export const brandMain = {
   string: '#ff8c00 5%, #ff0064 25%, #ff00a0 40%, #8c28ff 60%, #0023ff 80%, #19a0ff 95%'
 }
 
-export const brandMainOld = {
+export const SpectrumOld = {
   stops: [
     {
       offset: 0,
@@ -54,7 +56,7 @@ export const brandMainOld = {
   string: '#ff9e00 0%, #ff0000 35%, #b5007d 60%, #21429c 85%, #0071ff'
 }
 
-export const mobile = {
+export const Mobile = {
   stops: [
     {
       offset: 0.1,
@@ -72,7 +74,7 @@ export const mobile = {
   string: '#ff00a6 10%, #ff0a4f 50%, #ff6400 90%'
 }
 
-export const broadband = {
+export const Broadband = {
   stops: [
     {
       offset: 0,
@@ -86,7 +88,7 @@ export const broadband = {
   string: '#7f00e0, #ea00b3'
 }
 
-export const tv = {
+export const TV = {
   stops: [
     {
       offset: 0,

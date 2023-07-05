@@ -103,13 +103,13 @@ useHead({
       </div>
     </div>
 
-    <TheButton class="place-self-center" @click="clear">
-      clear all
-    </TheButton>
+    <UButton class="place-self-center" @click="clear">
+      Clear all
+    </UButton>
 
-    <TheButton class="place-self-center" @click="clipboardCopy">
+    <UButton class="place-self-center" @click="clipboardCopy">
       {{ copyBtnText }}
-    </TheButton>
+    </UButton>
     
     <textarea v-model="inputText" class="resize-none p-1 text-inherit bg-white dark:bg-neutral-700 dark:border-gray-100 border-black border" spellcheck="false" autofocus></textarea>
     <textarea v-model="outputText" class="resize-none p-1 text-inherit bg-white dark:bg-neutral-700 dark:border-gray-100 border-black border" spellcheck="false"></textarea>
