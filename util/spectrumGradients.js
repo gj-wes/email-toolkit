@@ -1,4 +1,4 @@
-export const gradientOptions = ['Spectrum', 'SpectrumOld','Mobile','Broadband','TV']
+export const gradientOptions = ['Spectrum', 'SpectrumOld','Mobile','Broadband','TV','SkyQ']
 
 export const Spectrum = {
   stops: [
@@ -100,4 +100,18 @@ export const TV = {
     }
   ],
   string: '#0288e1, #52daf7'
+}
+
+export const SkyQ = {
+  stops: [
+    {
+      offset: 0,
+      colour: "#3c00ff"
+    },
+    {
+      offset: 1,
+      colour: "#00e5ff"
+    }
+  ],
+  string: '#3c00ff, #00e5ff'
 }
