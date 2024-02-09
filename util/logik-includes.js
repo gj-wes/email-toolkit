@@ -266,17 +266,24 @@ export const cinWeeklyMovies = `<table align="center" cellspacing="0" cellpaddin
 
 export const fixDecimal = `<%
 function fixDecimal(num) {
-  if (typeof num === 'undefined') return "CHECK DATA";
-
-  var slicedPrice;
-  var floatedNum = parseFloat(num).toFixed(2);
-
-  if (floatedNum.toString().indexOf('.00') !== -1) {
-    slicedPrice = floatedNum.slice(0, floatedNum.indexOf('.00'));
-  } else {
-    slicedPrice = floatedNum
+  // Check if parameter is passed in
+  if (arguments.length === 0) {
+    return "CHECK DATA";
   }
-  return slicedPrice;
+  
+  var number = Number(num);
+  // Check if input is NaN
+  if (isNaN(number)) {
+    return "CHECK DATA";
+  }
+  // Check if the number is decimal
+  if (number % 1 !== 0) {
+    // If decimal, return as string with 2 decimal places
+    return number.toFixed(2);
+  } else {
+    // If whole number, return as string
+    return String(number);
+  }
 }
 %>`
 
