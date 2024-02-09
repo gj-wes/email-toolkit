@@ -266,7 +266,7 @@ export const cinWeeklyMovies = `<table align="center" cellspacing="0" cellpaddin
 
 export const fixDecimal = `<%
 function fixDecimal(num) {
-  if (!num) return "XX";
+  if (typeof num === 'undefined') return "CHECK DATA";
 
   var slicedPrice;
   var floatedNum = parseFloat(num).toFixed(2);
