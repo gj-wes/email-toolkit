@@ -297,3 +297,28 @@ function forwardXDays(days,format){
   return dt.getDate() + ' ' + months[dt.getMonth()] + ' ' + dt.getFullYear()
 }
 %>`
+
+export const formatPricePoint = `<%
+function formatPricePoint(value, options) {
+  // If no pricing value is passed in
+  if (typeof value === 'undefined' || value === '') return "DATA MISSING";
+
+  // default values if options not provided
+  options = options || {};
+  var currency = options.currency || '£';
+  var smallFontSize = options.smallFontSize || 64;
+
+  // format value input same as fixDecimal
+  var formattedVal = typeof value === 'string' ? Number(value).toFixed(2) : String(value.toFixed(2));
+
+  // More than 4/5 digit price
+  if (formattedVal.indexOf('.00') === -1) {
+  var sliceIndex = formattedVal.indexOf('.');
+
+  return '<span style="font-size:'+ smallFontSize +'px; line-height:1px;" class="price-inner-small">' + currency + '</span>' + formattedVal.slice(0, sliceIndex) + '<span style="font-size:'+ smallFontSize +'px; line-height:1px;" class="price-inner-small">.' + formattedVal.slice(-2) + '</span>';
+  }
+
+  // return 2 digit
+  return '<span style="font-size:'+ smallFontSize +'px; line-height:1px;" class="price-inner-small">' + currency + '</span>' + value;
+}
+%>`
