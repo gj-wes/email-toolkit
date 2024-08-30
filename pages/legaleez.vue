@@ -2,7 +2,7 @@
 import { det } from "detergent";
 import { useClipboard } from '@vueuse/core'
 
-const colourInput = ref('777777')
+const colourInput = ref('4a4a4a')
 
 const colourValue = computed(() => {
   if (colourInput.value.includes('#')) {
