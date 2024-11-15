@@ -11,7 +11,7 @@
     "@nuxthq/ui": "^2.5.0",
     "@vueuse/core": "^9.13.0",
     "@vueuse/nuxt": "^9.13.0",
-    "nuxt": "^3.12.2"
+    "nuxt": "^3.14.159"
   },
   "dependencies": {
     "detergent": "^9.1.3",
