@@ -93,7 +93,7 @@ async function updateOutput() {
     output.value = ejs.render(inputHTML.value, dataObj.value)
     outputFrame.value.style.backgroundColor = "initial"
   } catch (e) {
-    output.value = e.stack;
+    output.value = (e as Error).stack || 'Unknown error';
     outputFrame.value.style.backgroundColor = "rgb(235, 64, 52)"
   }
 }
@@ -118,7 +118,9 @@ function clearAll() {
         class="w-full bg-inherit border-black dark:border-gray-100 border-r border-b p-1 shrink-0">
       </textarea>
       
-      <Editor @update="editorUpdate" @clear="clearAll"/>
+      <LazyClientOnly>
+        <Editor @update="editorUpdate" @clear="clearAll"/>
+      </LazyClientOnly>
 
       <UButton v-if="input" class="absolute bottom-20 right-8" @click="toggleRegion">
         {{ regionBtnText }}

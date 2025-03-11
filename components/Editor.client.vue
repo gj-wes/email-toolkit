@@ -23,14 +23,16 @@ function clear() {
 }
 </script>
 <template>
-  <v-ace-editor
-  v-model:value="input"
-  @init="editorInit"
-  @change="inputUpdate"
-  lang="ejs"
-  theme="monokai"
-  wrap
-  style="height:100%" />
+  <ClientOnly>
+    <v-ace-editor
+    v-model:value="input"
+    @init="editorInit"
+    @change="inputUpdate"
+    lang="ejs"
+    theme="monokai"
+    wrap
+    style="height:100%" />
+  </ClientOnly>
 
   <UButton v-if="input" class="absolute bottom-8 right-8" @click="clear">
     Clear
