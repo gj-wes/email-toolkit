@@ -77,7 +77,7 @@ function clipboardCopy () {
 }
 
 function clear () {
-  colourInput.value = '777777'
+  colourInput.value = '4a4a4a'
   underline.value = false
   inputText.value = ''
   outputText.value = ''
