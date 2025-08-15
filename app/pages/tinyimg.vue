@@ -26,11 +26,11 @@ const isDragOver = ref(false)
 const isProcessing = ref(false)
 const compressionOptions = ref({
   maxSizeMB: 0.5,
-  maxWidthOrHeight: 1200,
+  maxWidthOrHeight: 1920,
   useWebWorker: true,
   quality: 0.7,
   initialQuality: 0.7,
-  alwaysKeepResolution: false
+  alwaysKeepResolution: true
 })
 
 function handleDragEnter(e: DragEvent) {
@@ -162,7 +162,6 @@ function removeImage(imageId: string) {
 
 <template>
   <div class="p-4 min-h-full">
-    <!-- Header and Controls -->
     <div class="mb-6">
       <div class="flex justify-center gap-4 mb-4">
         <UButton @click="clearAll" :disabled="images.length === 0">
@@ -177,7 +176,6 @@ function removeImage(imageId: string) {
         </UButton>
       </div>
 
-      <!-- Compression Settings -->
       <div class="flex justify-center gap-6 mb-4 text-sm">
         <label class="flex items-center">
           Quality:
@@ -193,7 +191,6 @@ function removeImage(imageId: string) {
       </div>
     </div>
 
-    <!-- Drop Zone -->
     <div 
       class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 mb-6 text-center transition-colors"
       :class="{ 'border-primary-500 bg-primary-50 dark:bg-primary-900/20': isDragOver }"
@@ -225,7 +222,6 @@ function removeImage(imageId: string) {
       </label>
     </div>
 
-    <!-- Processing Indicator -->
     <div v-if="isProcessing" class="text-center mb-6">
       <div class="inline-flex items-center">
         <svg class="animate-spin -ml-1 mr-3 h-5 w-5 text-primary-600" fill="none" viewBox="0 0 24 24">
@@ -236,7 +232,6 @@ function removeImage(imageId: string) {
       </div>
     </div>
 
-    <!-- Images List -->
     <div v-if="images.length > 0" class="space-y-4">
       <div 
         v-for="image in images" 
@@ -254,7 +249,6 @@ function removeImage(imageId: string) {
               </span>
             </div>
             
-            <!-- Status -->
             <div class="mt-2">
               <span 
                 v-if="image.status === 'pending'" 
@@ -311,7 +305,3 @@ function removeImage(imageId: string) {
     </div>
   </div>
 </template>
-
-<style scoped>
-/* Custom styles for better drag and drop visual feedback */
-</style>
