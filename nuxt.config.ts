@@ -10,5 +10,6 @@ export default defineNuxtConfig({
     '/legaleez': { prerender: true },
     '/text-compare': { prerender: true },
     '/logik': { ssr: false },
+    '/tinyimg': { ssr: false },
   }
 })
