@@ -29,7 +29,6 @@ const compressionOptions = ref({
   maxWidthOrHeight: 1920,
   useWebWorker: true,
   quality: 0.7,
-  initialQuality: 0.7,
   alwaysKeepResolution: true
 })
 
@@ -176,19 +175,6 @@ function removeImage(imageId: string) {
         </UButton>
       </div>
 
-      <div class="flex justify-center gap-6 mb-4 text-sm">
-        <label class="flex items-center">
-          Quality:
-          <input 
-            v-model.number="compressionOptions.quality" 
-            type="number" 
-            min="0.1" 
-            max="1" 
-            step="0.1"
-            class="ml-2 w-16 px-2 py-1 border rounded dark:bg-gray-800 dark:border-gray-600"
-          >
-        </label>
-      </div>
     </div>
 
     <div 
