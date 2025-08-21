@@ -11,6 +11,7 @@
     "@nuxt/ui": "^2.21.0",
     "@nuxtjs/tailwindcss": "^6.13.2",
     "@types/diff": "^7.0.1",
+    "@types/papaparse": "^5.3.16",
     "@vueuse/core": "^9.13.0",
     "@vueuse/nuxt": "^13.5.0",
     "nuxt": "^4.0.0"
@@ -23,6 +24,7 @@
     "ejs": "^3.1.9",
     "html-to-image": "^1.11.11",
     "jszip": "^3.10.1",
+    "papaparse": "^5.5.3",
     "vue-router": "^4.5.0",
     "vue3-ace-editor": "^2.2.2"
   }
