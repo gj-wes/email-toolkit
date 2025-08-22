@@ -3,6 +3,8 @@ export default defineNuxtConfig({
   devtools: { enabled: true },
   modules: ['@vueuse/nuxt', '@nuxt/ui', '@nuxtjs/tailwindcss'],
 
+  css: ['~/assets/css/main.css'],
+
   compatibilityDate: '2024-11-15',
 
   routeRules: {
