@@ -22,7 +22,7 @@ defineProps({
         </div>
     </div>
 
-    <VIPCTA :url="ctaUrl">
+    <VIPCTA :url="ctaUrl" class="mt-4">
         {{ ctaText }}
     </VIPCTA>
 </template>

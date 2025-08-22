@@ -12,7 +12,6 @@ const isDragOver = ref(false)
 const csvData = ref<any[]>([])
 const selectedIndex = ref(0)
 
-// Component visibility controls
 const showTacticalHero = ref(false)
 const showSports = ref(true)
 const showRewardsOnRepeat = ref(true)
@@ -136,93 +135,9 @@ const toggleBtnText = computed(() => {
   return selectedIndex.value === 0 ? 'UK' : 'ROI'
 })
 
-// const currentData = computed(() => {
-//   return csvData.value.length > selectedIndex.value ? csvData.value[selectedIndex.value] : null
-// })
-fileOpened.value = true
-csvData.value = 'test'
-const currentData = {
-  "mi_country": "GBP",
-  "Main_Headline": "Check out your top rewards this week from Sky VIP",
-  "Hero_Image_URL": "https://movableink-assets-production.s3.amazonaws.com/8767/37504626-1b19-4ce2-9e3c-a8e26600883c/446262d2-35f2-43dc-a3a0-399883df0bbc.png",
-  "Hero_Copy": "Enter for a chance to win a trip to Universal Orlando Resort’s four amazing theme parks, including the new Universal Epic Universe, now open! This October, get ready to enjoy a 7-night holiday of non-stop awesome!",
-  "Hero_CTA_Copy": "Enter now",
-  "Hero_CTA_URL": "https://www.sky.com/app/vip?cat=Competition",
-  "Tactical_Hero_Image_URL": "https://movableink-assets-production.s3.amazonaws.com/8767/440406e9-9992-41d0-9da9-df2436850dec/aeac0b2b-11b6-4bf6-84b2-071ff7833af6.png",
-  "Tactical_Hero_Copy": "Enjoy 1 year of unlimited access to The Athletic, on us. Follow essential coverage of the teams you care about, through expert insights and analysis. From breaking the news and live commentary, The Athletic delivers every sports story that matters",
-  "Tactical_Hero_CTA_Copy": "Claim now",
-  "Tactical_Hero_CTA_URL": "https://www.sky.com/app/tab/vip",
-  "Sports_Heading": "Your exclusive Sky Sports rewards",
-  "Sports_1_Image_URL": "https://movableink-assets-production.s3.amazonaws.com/8767/0ceb087e-601e-4a14-baf1-43ac393cc2d6/0a5f484d-48b7-430e-9a0b-633dec2d2cca.png",
-  "Sports_2_Image_URL": "https://movableink-assets-production.s3.amazonaws.com/8767/444a4082-6b7e-4722-a6d4-6c77cfe671f1/4050c593-8550-4aee-be42-45dbfc54089c.png",
-  "Sports_3_Image_URL": "https://movableink-assets-production.s3.amazonaws.com/8767/2eca58ac-1202-46ea-8906-bc069e72a258/24d645e9-ac69-4129-8648-b73af770ac8f.png",
-  "Sports_Copy": "Score big this season! Win Premier League tickets, enjoy a year of The Athletic for free, or save 25% on PowerLeague. Don’t miss your shot—claim your reward and kick off the ultimate football experience!",
-  "Sports_CTA_Copy": "Find out more",
-  "Sports_CTA_URL": "https://www.sky.com/app/tab/vip",
-  "Rewards_on_Repeat_Heading": "A weekly treat, on us",
-  "Rewards_on_Repeat_Image_URL": "https://movableink-assets-production.s3.amazonaws.com/8767/19659066-52f8-4a2e-ad24-64c4a93172f2/df9e2f62-ed48-4bc9-b38c-44ecb0f2d480.png",
-  "Rewards_on_Repeat_Copy": "Tasty treat alert! Head to the My Sky app this week to claim your delicious reward from Sainsbury’s. Don’t miss out—tap in and treat yourself while it lasts!",
-  "Rewards_on_Repeat_CTA_Copy": "Claim now",
-  "Rewards_on_Repeat_CTA_URL": "https://www.sky.com/app/tab/vip",
-  "Experience_Heading": "Check out our unforgettable experiences",
-  "Experience_1_Image_URL": "https://movableink-assets-production.s3.amazonaws.com/8767/600bc6bf-7065-40c3-b9bf-7ddc6cd85af1/e8fe030b-71a6-4c0c-a6ef-4b6203b4f61e.png",
-  "Experience_2_Image_URL": "https://movableink-assets-production.s3.amazonaws.com/8767/0b1ee144-d92b-4530-90e2-e32d99ba4ad4/2e52d9f1-b4c3-4302-8563-ca675e94989f.png",
-  "Experience_3_Image_URL": "https://movableink-assets-production.s3.amazonaws.com/8767/5a610955-29d1-4e62-ad65-c5864995a4a2/4e88cdcc-a265-4659-af81-e295ea227421.png",
-  "Experience_Copy": "Big wins await! Save on LEGOLAND® tickets, win an unforgettable night at Adventure Cinema, or bag a brand-new Sky Glass. Head to the My Sky app now and make your summer epic",
-  "Experience_CTA_Copy": "Enter now",
-  "Experience_CTA_URL": "https://www.sky.com/app/tab/vip",
-  "Everyday_Savings_Heading": "Best-in-market discounts",
-  "Everyday_Savings_Image_URL": "https://movableink-assets-production.s3.amazonaws.com/8767/ca94e388-86c3-42ab-87e6-c81c6bb9fbf2/f79b426b-1326-4ca6-b3dc-624670d0dbed.png",
-  "Everyday_Savings_Copy": "Family getaway incoming! Save on your next holiday with exclusive offers just for Sky customers. Head to Everyday Discounts in the My Sky app and start planning your perfect break today.",
-  "Everyday_Savings_CTA_Copy": "Claim now",
-  "Everyday_Savings_CTA_URL": "https://www.sky.com/",
-  "TV_Customers_Heading": "Extras on your Sky products",
-  "TV_Customers_Image_URL": "https://movableink-assets-production.s3.amazonaws.com/8767/8f0bcd6b-a3fa-47a1-b9c6-1bc1322693e1/29129936-5d22-4e82-8f43-641a5c5e8361.png",
-  "TV_Customers_Copy": "Stay protected for free! Sky customers can enjoy 12 months of Norton Security at no cost. Keep your devices safe and secure—head to the My Sky app now to claim your free trial.",
-  "TV_Customers_CTA_Copy": "Claim now",
-  "TV_Customers_CTA_URL": "https://www.sky.com/app/tab/vip",
-  "BB_Customers_Heading": "Extras on your Sky products",
-  "BB_Customers_Image_URL": "https://movableink-assets-production.s3.amazonaws.com/8767/8f0bcd6b-a3fa-47a1-b9c6-1bc1322693e1/29129936-5d22-4e82-8f43-641a5c5e8361.png",
-  "BB_Customers_Copy": "Stay protected for free! Sky customers can enjoy 12 months of Norton Security at no cost. Keep your devices safe and secure—head to the My Sky app now to claim your free trial.",
-  "BB_Customers_CTA_Copy": "Claim now",
-  "BB_Customers_CTA_URL": "https://www.sky.com/app/tab/vip",
-  "Mobile_Heading": "Extras on your Sky products",
-  "Mobile_Image_URL": "https://movableink-assets-production.s3.amazonaws.com/8767/8f0bcd6b-a3fa-47a1-b9c6-1bc1322693e1/29129936-5d22-4e82-8f43-641a5c5e8361.png",
-  "Mobile_Copy": "Stay protected for free! Sky customers can enjoy 12 months of Norton Security at no cost. Keep your devices safe and secure—head to the My Sky app now to claim your free trial.",
-  "Mobile_CTA_Copy": "Claim now",
-  "Mobile_CTA_URL": "https://www.sky.com/app/tab/vip",
-  "TV_BB_Mobile_Heading": "Extras on your Sky products",
-  "TV_BB_Mobile_Image_URL": "https://movableink-assets-production.s3.amazonaws.com/8767/8f0bcd6b-a3fa-47a1-b9c6-1bc1322693e1/29129936-5d22-4e82-8f43-641a5c5e8361.png",
-  "TV_BB_Mobile_Copy": "Stay protected for free! Sky customers can enjoy 12 months of Norton Security at no cost. Keep your devices safe and secure—head to the My Sky app now to claim your free trial.",
-  "TV_BB_Mobile_CTA_Copy": "Claim now",
-  "TV_BB_Mobile_CTA_URL": "https://www.sky.com/app/tab/vip",
-  "TV_BB_Heading": "Extras on your Sky products",
-  "TV_BB_Image_URL": "https://movableink-assets-production.s3.amazonaws.com/8767/8f0bcd6b-a3fa-47a1-b9c6-1bc1322693e1/29129936-5d22-4e82-8f43-641a5c5e8361.png",
-  "TV_BB_Copy": "Stay protected for free! Sky customers can enjoy 12 months of Norton Security at no cost. Keep your devices safe and secure—head to the My Sky app now to claim your free trial.",
-  "TV_BB_CTA_Copy": "Claim now",
-  "TV_BB_CTA_URL": "https://www.sky.com/app/tab/vip",
-  "TV_Mobile_Heading": "Extras on your Sky products",
-  "TV_Mobile_Image_URL": "https://movableink-assets-production.s3.amazonaws.com/8767/8f0bcd6b-a3fa-47a1-b9c6-1bc1322693e1/29129936-5d22-4e82-8f43-641a5c5e8361.png",
-  "TV_Mobile_Copy": "Stay protected for free! Sky customers can enjoy 12 months of Norton Security at no cost. Keep your devices safe and secure—head to the My Sky app now to claim your free trial.",
-  "TV_Mobile_CTA_Copy": "Claim now",
-  "TV_Mobile_CTA_URL": "https://www.sky.com/app/tab/vip",
-  "BB_Mobile_Heading": "Extras on your Sky products",
-  "BB_Mobile_Image_URL": "https://movableink-assets-production.s3.amazonaws.com/8767/8f0bcd6b-a3fa-47a1-b9c6-1bc1322693e1/29129936-5d22-4e82-8f43-641a5c5e8361.png",
-  "BB_Mobile_Copy": "Stay protected for free! Sky customers can enjoy 12 months of Norton Security at no cost. Keep your devices safe and secure—head to the My Sky app now to claim your free trial.",
-  "BB_Mobile_CTA_Copy": "Claim now",
-  "BB_Mobile_CTA_URL": "https://www.sky.com/app/tab/vip",
-  "Extra_Entertainment_Heading": "Extras on your Sky products",
-  "Extra_Entertainment_Image_URL": "https://movableink-assets-production.s3.amazonaws.com/8767/1abff1d5-b3f9-4192-89f1-374ed6ec5ade/36e5b9ff-7aa0-4898-a7d9-aea048549a71.png",
-  "Extra_Entertainment_Copy": "Settle in and get ready for a fun movie night in with Sky VIP. Spend an evening with The Bad Guys, getting up to no good and promising lots of laughs",
-  "Extra_Entertainment_CTA_Copy": "Claim now",
-  "Extra_Entertainment_CTA_URL": "https://www.sky.com/app/tab/vip",
-  "Signoff_Copy": "Make everyday a little better. It's a thank you from us.",
-  "T&Cs_Hero_Link1_TEXT": "",
-  "Hero_Link2_TEXT": "",
-  "Hero_Link3_TEXT": "",
-  "Legal_Copy": "legal legal legal legal legal legal legal legal legal legal legal legal legal legal legal legal legal legal legal legal legal legal legal legal legal legal legal legal",
-  "Legal_Copy_Extra": ""
-}
+const currentData = computed(() => {
+  return csvData.value.length > selectedIndex.value ? csvData.value[selectedIndex.value] : null
+})
 </script>
 
 <template>
@@ -270,12 +185,12 @@ const currentData = {
 
     <div 
       v-if="csvData.length > 0" 
-      class="fixed bottom-4 right-4 z-10 bg-white border border-gray-300 rounded-lg p-4 shadow-lg max-w-md overflow-y-auto"
+      class="fixed bottom-4 right-4 z-10 bg-white dark:bg-neutral-800 border border-gray-300 rounded-lg p-4 shadow-lg max-w-md overflow-y-auto"
     >
       
       <!-- Region selector -->
       <div v-if="csvData.length > 1" class="mb-4">
-        <label class="block text-xs font-medium text-gray-600 mb-2">Region:</label>
+        <label class="block text-xs font-bold mb-2">Region:</label>
         <div class="flex rounded-lg border border-gray-200 overflow-hidden">
           <button
             @click="selectedIndex = 0"
@@ -283,7 +198,7 @@ const currentData = {
               'flex-1 px-4 py-2 text-sm font-medium transition-colors',
               selectedIndex === 0 
                 ? 'bg-blue-500 text-white' 
-                : 'bg-white text-gray-700 hover:bg-gray-50'
+                : 'bg-white dark:bg-neutral-800 text-gray-700 dark:text-white hover:bg-gray-50'
             ]"
           >
             UK
@@ -294,7 +209,7 @@ const currentData = {
               'flex-1 px-4 py-2 text-sm font-medium transition-colors',
               selectedIndex === 1 
                 ? 'bg-blue-500 text-white' 
-                : 'bg-white text-gray-700 hover:bg-gray-50'
+                : 'bg-white dark:bg-neutral-800 text-gray-700 dark:text-white hover:bg-gray-50'
             ]"
           >
             ROI
@@ -304,7 +219,7 @@ const currentData = {
 
       <!-- Component visibility controls -->
       <div>
-        <label class="block text-xs font-medium text-gray-600 mb-2">Pods:</label>
+        <label class="block text-xs font-bold mb-2">Pods:</label>
         <div class="space-y-3 text-xs">
           <div class="flex items-center gap-3 justify-between">
             <span>Tactical Hero</span>
@@ -372,7 +287,6 @@ const currentData = {
         {{ currentData.Main_Headline }}
       </h1>
 
-      <!-- tactical_hero -->
       <VIPHero 
         v-if="showTacticalHero"
         :imgUrl="currentData.Tactical_Hero_Image_URL" 
@@ -380,7 +294,6 @@ const currentData = {
         :ctaUrl="currentData.Tactical_Hero_CTA_URL"
         :ctaText="currentData.Tactical_Hero_CTA_Copy"
       />
-      <!-- hero -->
       <VIPHero 
         v-else
         :imgUrl="currentData.Hero_Image_URL" 
@@ -389,7 +302,6 @@ const currentData = {
         :ctaText="currentData.Hero_CTA_Copy"
       />
 
-      <!-- sports - 3 col -->
       <VIPContent 
         v-if="showSports"
         :headingText="currentData.Sports_Heading"
@@ -399,7 +311,7 @@ const currentData = {
         :ctaText="currentData.Sports_CTA_Copy"
         type="cols"
       />
-      <!-- rewards_on_repeat -->
+
       <VIPContent 
         v-if="showRewardsOnRepeat"
         :headingText="currentData.Rewards_on_Repeat_Heading"
@@ -409,7 +321,6 @@ const currentData = {
         :ctaText="currentData.Rewards_on_Repeat_CTA_Copy"
       />
 
-      <!-- experience -->
       <VIPContent 
         v-if="showExperience"
         :headingText="currentData.Experience_Heading"
@@ -420,7 +331,6 @@ const currentData = {
         type="cols"
       />
 
-      <!-- everyday_savings -->
       <VIPContent 
         v-if="showEverydaySavings"
         :headingText="currentData.Everyday_Savings_Heading"
@@ -430,7 +340,6 @@ const currentData = {
         :ctaText="currentData.Everyday_Savings_CTA_Copy"
       />
 
-      <!-- tv_cust -->
       <VIPContent 
         v-if="showTvCust"
         :headingText="currentData.TV_Customers_Heading"
@@ -440,7 +349,6 @@ const currentData = {
         :ctaText="currentData.TV_Customers_CTA_Copy"
       />
 
-      <!-- bb_cust -->
       <VIPContent 
         v-if="showBbCust"
         :headingText="currentData.BB_Customers_Heading"
@@ -450,7 +358,6 @@ const currentData = {
         :ctaText="currentData.BB_Customers_CTA_Copy"
       />
 
-      <!-- mobile_cust -->
       <VIPContent 
         v-if="showMobileCust"
         :headingText="currentData.Mobile_Heading"
@@ -460,7 +367,6 @@ const currentData = {
         :ctaText="currentData.Mobile_CTA_Copy"
       />
 
-      <!-- tv_bb -->
       <VIPContent 
         v-if="showTvBb"
         :headingText="currentData.TV_BB_Heading"
@@ -470,7 +376,6 @@ const currentData = {
         :ctaText="currentData.TV_BB_CTA_Copy"
       />
 
-      <!-- tv_bb_mobile -->
       <VIPContent 
         v-if="showTvBbMobile"
         :headingText="currentData.TV_BB_Mobile_Heading"
@@ -480,7 +385,6 @@ const currentData = {
         :ctaText="currentData.TV_BB_Mobile_CTA_Copy"
       />
 
-      <!-- tv_mobile -->
       <VIPContent 
         v-if="showTvMobile"
         :headingText="currentData.TV_Mobile_Heading"
@@ -490,7 +394,6 @@ const currentData = {
         :ctaText="currentData.TV_Mobile_CTA_Copy"
       />
 
-      <!-- bb_mobile -->
       <VIPContent 
         v-if="showBbMobile"
         :headingText="currentData.BB_Mobile_Heading"
@@ -500,7 +403,6 @@ const currentData = {
         :ctaText="currentData.BB_Mobile_CTA_Copy"
       />
 
-      <!-- extra_ent -->
       <VIPContent 
         v-if="showExtraEnt"
         :headingText="currentData.Extra_Entertainment_Heading"
@@ -510,17 +412,15 @@ const currentData = {
         :ctaText="currentData.Extra_Entertainment_CTA_Copy"
       />
 
-      <!-- signoff -->
       <VIPHeading class="mb-12">
         {{ currentData.Signoff_Copy }}
       </VIPHeading>
 
-      <!-- footer -->
       <div class="h-[6px] gradient"></div>
 
       <div>
         <img src="https://res.newsletter.contact.sky/res/img/0990D9D2426E04156EA51E87F3C7235F.png" alt="Sky" class="w-[74px] h-[45px] my-10 mx-auto" />
-        <p class="text-[10px] leading-[14px] mb-4 mx-7">
+        <p class="text-[10px] leading-[14px] mb-4 mx-7 font-arial">
           <a href="#" class="underline">Privacy Policy</a> | <a href="#" class="underline">Terms and Conditions</a> | <a href="#" class="underline">Contact us</a> | <a href="#" class="underline">My Account</a>
           <br><br>
           You were sent this email as part of your Sky VIP membership.<br>
