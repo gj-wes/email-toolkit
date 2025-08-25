@@ -293,6 +293,12 @@ const currentData = computed(() => {
         :text="currentData.Tactical_Hero_Copy"
         :ctaUrl="currentData.Tactical_Hero_CTA_URL"
         :ctaText="currentData.Tactical_Hero_CTA_Copy"
+        :csvColumns="{
+          imgUrl: 'Tactical Hero Image URL',
+          text: 'Tactical Hero Copy',
+          ctaUrl: 'Tactical Hero CTA URL',
+          ctaText: 'Tactical Hero CTA Copy'
+        }"
       />
       <VIPHero 
         v-else
@@ -300,6 +306,12 @@ const currentData = computed(() => {
         :text="currentData.Hero_Copy"
         :ctaUrl="currentData.Hero_CTA_URL"
         :ctaText="currentData.Hero_CTA_Copy"
+        :csvColumns="{
+          imgUrl: 'Hero Image URL',
+          text: 'Hero Copy',
+          ctaUrl: 'Hero CTA URL',
+          ctaText: 'Hero CTA Copy'
+        }"
       />
 
       <VIPContent 
@@ -310,6 +322,13 @@ const currentData = computed(() => {
         :ctaUrl="currentData.Sports_CTA_URL"
         :ctaText="currentData.Sports_CTA_Copy"
         type="cols"
+        :csvColumns="{
+          headingText: 'Sports Heading',
+          imgUrl: 'Sports Image URLs (1, 2, 3)',
+          text: 'Sports Copy',
+          ctaUrl: 'Sports CTA URL',
+          ctaText: 'Sports CTA Copy'
+        }"
       />
 
       <VIPContent 
@@ -319,6 +338,13 @@ const currentData = computed(() => {
         :text="currentData.Rewards_on_Repeat_Copy"
         :ctaUrl="currentData.Rewards_on_Repeat_CTA_URL"
         :ctaText="currentData.Rewards_on_Repeat_CTA_Copy"
+        :csvColumns="{
+          headingText: 'Rewards on Repeat Heading',
+          imgUrl: 'Rewards on Repeat Image URL',
+          text: 'Rewards on Repeat Copy',
+          ctaUrl: 'Rewards on Repeat CTA URL',
+          ctaText: 'Rewards on Repeat CTA Copy'
+        }"
       />
 
       <VIPContent 
@@ -329,6 +355,13 @@ const currentData = computed(() => {
         :ctaUrl="currentData.Experience_CTA_URL"
         :ctaText="currentData.Experience_CTA_Copy"
         type="cols"
+        :csvColumns="{
+          headingText: 'Experience Heading',
+          imgUrl: 'Experience Image URLs (1, 2, 3)',
+          text: 'Experience Copy',
+          ctaUrl: 'Experience CTA URL',
+          ctaText: 'Experience CTA Copy'
+        }"
       />
 
       <VIPContent 
@@ -338,6 +371,13 @@ const currentData = computed(() => {
         :text="currentData.Everyday_Savings_Copy"
         :ctaUrl="currentData.Everyday_Savings_CTA_URL"
         :ctaText="currentData.Everyday_Savings_CTA_Copy"
+        :csvColumns="{
+          headingText: 'Everyday Savings Heading',
+          imgUrl: 'Everyday Savings Image URL',
+          text: 'Everyday Savings Copy',
+          ctaUrl: 'Everyday Savings CTA URL',
+          ctaText: 'Everyday Savings CTA Copy'
+        }"
       />
 
       <VIPContent 
@@ -347,6 +387,13 @@ const currentData = computed(() => {
         :text="currentData.TV_Customers_Copy"
         :ctaUrl="currentData.TV_Customers_CTA_URL"
         :ctaText="currentData.TV_Customers_CTA_Copy"
+        :csvColumns="{
+          headingText: 'TV Customers Heading',
+          imgUrl: 'TV Customers Image URL',
+          text: 'TV Customers Copy',
+          ctaUrl: 'TV Customers CTA URL',
+          ctaText: 'TV Customers CTA Copy'
+        }"
       />
 
       <VIPContent 
@@ -356,6 +403,13 @@ const currentData = computed(() => {
         :text="currentData.BB_Customers_Copy"
         :ctaUrl="currentData.BB_Customers_CTA_URL"
         :ctaText="currentData.BB_Customers_CTA_Copy"
+        :csvColumns="{
+          headingText: 'BB Customers Heading',
+          imgUrl: 'BB Customers Image URL',
+          text: 'BB Customers Copy',
+          ctaUrl: 'BB Customers CTA URL',
+          ctaText: 'BB Customers CTA Copy'
+        }"
       />
 
       <VIPContent 
@@ -365,6 +419,13 @@ const currentData = computed(() => {
         :text="currentData.Mobile_Copy"
         :ctaUrl="currentData.Mobile_CTA_URL"
         :ctaText="currentData.Mobile_CTA_Copy"
+        :csvColumns="{
+          headingText: 'Mobile Heading',
+          imgUrl: 'Mobile Image URL',
+          text: 'Mobile Copy',
+          ctaUrl: 'Mobile CTA URL',
+          ctaText: 'Mobile CTA Copy'
+        }"
       />
 
       <VIPContent 
@@ -374,6 +435,13 @@ const currentData = computed(() => {
         :text="currentData.TV_BB_Copy"
         :ctaUrl="currentData.TV_BB_CTA_URL"
         :ctaText="currentData.TV_BB_CTA_Copy"
+        :csvColumns="{
+          headingText: 'TV BB Heading',
+          imgUrl: 'TV BB Image URL',
+          text: 'TV BB Copy',
+          ctaUrl: 'TV BB CTA URL',
+          ctaText: 'TV BB CTA Copy'
+        }"
       />
 
       <VIPContent 
@@ -383,6 +451,13 @@ const currentData = computed(() => {
         :text="currentData.TV_BB_Mobile_Copy"
         :ctaUrl="currentData.TV_BB_Mobile_CTA_URL"
         :ctaText="currentData.TV_BB_Mobile_CTA_Copy"
+        :csvColumns="{
+          headingText: 'TV BB Mobile Heading',
+          imgUrl: 'TV BB Mobile Image URL',
+          text: 'TV BB Mobile Copy',
+          ctaUrl: 'TV BB Mobile CTA URL',
+          ctaText: 'TV BB Mobile CTA Copy'
+        }"
       />
 
       <VIPContent 
@@ -392,6 +467,13 @@ const currentData = computed(() => {
         :text="currentData.TV_Mobile_Copy"
         :ctaUrl="currentData.TV_Mobile_CTA_URL"
         :ctaText="currentData.TV_Mobile_CTA_Copy"
+        :csvColumns="{
+          headingText: 'TV Mobile Heading',
+          imgUrl: 'TV Mobile Image URL',
+          text: 'TV Mobile Copy',
+          ctaUrl: 'TV Mobile CTA URL',
+          ctaText: 'TV Mobile CTA Copy'
+        }"
       />
 
       <VIPContent 
@@ -401,6 +483,13 @@ const currentData = computed(() => {
         :text="currentData.BB_Mobile_Copy"
         :ctaUrl="currentData.BB_Mobile_CTA_URL"
         :ctaText="currentData.BB_Mobile_CTA_Copy"
+        :csvColumns="{
+          headingText: 'BB Mobile Heading',
+          imgUrl: 'BB Mobile Image URL',
+          text: 'BB Mobile Copy',
+          ctaUrl: 'BB Mobile CTA URL',
+          ctaText: 'BB Mobile CTA Copy'
+        }"
       />
 
       <VIPContent 
@@ -410,6 +499,13 @@ const currentData = computed(() => {
         :text="currentData.Extra_Entertainment_Copy"
         :ctaUrl="currentData.Extra_Entertainment_CTA_URL"
         :ctaText="currentData.Extra_Entertainment_CTA_Copy"
+        :csvColumns="{
+          headingText: 'Extra Entertainment Heading',
+          imgUrl: 'Extra Entertainment Image URL',
+          text: 'Extra Entertainment Copy',
+          ctaUrl: 'Extra Entertainment CTA URL',
+          ctaText: 'Extra Entertainment CTA Copy'
+        }"
       />
 
       <VIPHeading class="mb-12">
