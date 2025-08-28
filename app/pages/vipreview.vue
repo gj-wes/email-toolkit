@@ -81,6 +81,41 @@ async function handleFileInput(e: Event) {
   }
 }
 
+async function readFileWithEncodingDetection(file: File): Promise<string> {
+  // First, try to read as UTF-8
+  try {
+    const text = await file.text()
+    // Simple check for common encoding issues - look for replacement characters
+    if (!text.includes('\ufffd')) {
+      return text
+    }
+  } catch (error) {
+    // If UTF-8 fails, continue to try other encodings
+  }
+
+  // Try common encodings if UTF-8 failed or contained replacement characters
+  const encodings = ['windows-1252', 'iso-8859-1', 'utf-8']
+  
+  for (const encoding of encodings) {
+    try {
+      const arrayBuffer = await file.arrayBuffer()
+      const decoder = new TextDecoder(encoding, { fatal: false })
+      const text = decoder.decode(arrayBuffer)
+      
+      // Check if decoding was successful (no replacement characters)
+      if (!text.includes('\ufffd')) {
+        return text
+      }
+    } catch (error) {
+      // Try next encoding
+      continue
+    }
+  }
+
+  // If all encodings fail, return the UTF-8 attempt as fallback
+  return await file.text()
+}
+
 async function processFile(file: File) {
   errorMessage.value = ''
   
@@ -95,7 +130,7 @@ async function processFile(file: File) {
   }
 
   try {
-    const text = await file.text()
+    const text = await readFileWithEncodingDetection(file)
     await parseCSV(text)
     
     csvFile.value = file
