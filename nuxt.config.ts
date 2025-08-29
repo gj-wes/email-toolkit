@@ -7,6 +7,10 @@ export default defineNuxtConfig({
 
   compatibilityDate: '2024-11-15',
 
+  nitro: {
+    preset: 'netlify' // Enable Netlify functions
+  },
+
   routeRules: {
     '/': { prerender: true },
     '/legaleez': { prerender: true },
