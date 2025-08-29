@@ -8,7 +8,6 @@ useHead({
 const csvFile = ref<File | null>(null)
 const fileOpened = ref(false)
 const errorMessage = ref('')
-const isDragOver = ref(false)
 const csvData = ref<any[]>([])
 const selectedIndex = ref(0)
 
@@ -26,49 +25,13 @@ const showTvMobile = ref(true)
 const showBbMobile = ref(true)
 const showExtraEnt = ref(true)
 
-function handleDragEnter(e: DragEvent) {
-  e.preventDefault()
-  isDragOver.value = true
-}
-
-function handleDragLeave(e: DragEvent) {
-  e.preventDefault()
-  isDragOver.value = false
-}
-
-function handleDragOver(e: DragEvent) {
-  e.preventDefault()
-}
-
-async function handleDrop(e: DragEvent) {
-  e.preventDefault()
-  isDragOver.value = false
-  
-  const files = Array.from(e.dataTransfer?.files || [])
-  
+async function handleDropZoneFiles(files: File[]) {
   if (files.length === 0) {
     return
   }
 
   if (files.length > 1) {
     errorMessage.value = 'Please drop only one CSV file at a time'
-    return
-  }
-
-  const file = files[0]
-  if (file) {
-    processFile(file).catch(err => {
-      console.error('Error processing file:', err)
-      errorMessage.value = 'Error processing file'
-    })
-  }
-}
-
-async function handleFileInput(e: Event) {
-  const target = e.target as HTMLInputElement
-  const files = Array.from(target.files || [])
-  
-  if (files.length === 0) {
     return
   }
 
@@ -177,36 +140,15 @@ const currentData = computed(() => {
 
 <template>
   <div class="p-4 min-h-full">
-    <div 
+    <FileDropZone 
       v-if="!fileOpened"
-      class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 mb-6 text-center transition-colors"
-      :class="{ 'border-primary-500 bg-primary-50 dark:bg-primary-900/20': isDragOver }"
-      @dragenter="handleDragEnter"
-      @dragleave="handleDragLeave"
-      @dragover="handleDragOver"
-      @drop="handleDrop"
-    >
-      <div class="mb-4">
-        <svg class="w-12 h-12 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-        </svg>
-      </div>
-      <p class="text-lg mb-2">Drag and drop CSV file here</p>
-      <p class="text-sm text-gray-500 mb-4">or</p>
-      
-      <label for="file-upload" class="cursor-pointer">
-        <UButton as="span">
-          Choose CSV File
-        </UButton>
-        <input 
-          id="file-upload"
-          type="file" 
-          accept=".csv,text/csv" 
-          class="hidden"
-          @change="handleFileInput"
-        >
-      </label>
-    </div>
+      accept=".csv,text/csv" 
+      title="Drag and drop CSV file here"
+      button-text="Choose CSV File"
+      @drop="handleDropZoneFiles"
+      @input="handleDropZoneFiles"
+      class="mb-6"
+    />
 
     <div v-if="errorMessage" class="text-center mb-6">
       <div class="inline-flex items-center px-4 py-2 rounded-lg bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300">

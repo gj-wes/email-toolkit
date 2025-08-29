@@ -18,43 +18,9 @@ const emlFiles = ref<File[]>([])
 const processedFiles = ref<ProcessedFile[]>([])
 const fileOpened = ref(false)
 const errorMessage = ref('')
-const isDragOver = ref(false)
 const isProcessing = ref(false)
 
-function handleDragEnter(e: DragEvent) {
-  e.preventDefault()
-  isDragOver.value = true
-}
-
-function handleDragLeave(e: DragEvent) {
-  e.preventDefault()
-  isDragOver.value = false
-}
-
-function handleDragOver(e: DragEvent) {
-  e.preventDefault()
-}
-
-async function handleDrop(e: DragEvent) {
-  e.preventDefault()
-  isDragOver.value = false
-  
-  const files = Array.from(e.dataTransfer?.files || [])
-  
-  if (files.length === 0) {
-    return
-  }
-
-  processFiles(files).catch(err => {
-    console.error('Error processing files:', err)
-    errorMessage.value = 'Error processing files'
-  })
-}
-
-async function handleFileInput(e: Event) {
-  const target = e.target as HTMLInputElement
-  const files = Array.from(target.files || [])
-  
+async function handleDropZoneFiles(files: File[]) {
   if (files.length === 0) {
     return
   }
@@ -320,37 +286,17 @@ function clearAll() {
       </div>
     </div>
 
-    <div 
+    <FileDropZone 
       v-if="!fileOpened"
-      class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 mb-6 text-center transition-colors"
-      :class="{ 'border-primary-500 bg-primary-50 dark:bg-primary-900/20': isDragOver }"
-      @dragenter="handleDragEnter"
-      @dragleave="handleDragLeave"
-      @dragover="handleDragOver"
-      @drop="handleDrop"
-    >
-      <div class="mb-4">
-        <svg class="w-12 h-12 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
-        </svg>
-      </div>
-      <p class="text-lg mb-2">Drag and drop .eml files here</p>
-      <p class="text-sm text-gray-500 mb-4">or</p>
-      
-      <label for="file-upload" class="cursor-pointer">
-        <UButton as="span">
-          Choose .eml Files
-        </UButton>
-        <input 
-          id="file-upload"
-          type="file" 
-          accept=".eml" 
-          multiple
-          class="hidden"
-          @change="handleFileInput"
-        >
-      </label>
-    </div>
+      accept=".eml" 
+      :multiple="true"
+      icon="email"
+      title="Drag and drop .eml files here"
+      button-text="Choose .eml Files"
+      @drop="handleDropZoneFiles"
+      @input="handleDropZoneFiles"
+      class="mb-6"
+    />
 
     <div v-if="errorMessage" class="text-center mb-6">
       <div class="inline-flex items-center px-4 py-2 rounded-lg bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300">

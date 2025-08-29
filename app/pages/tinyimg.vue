@@ -22,7 +22,6 @@ interface CompressedImage {
 }
 
 const images = ref<CompressedImage[]>([])
-const isDragOver = ref(false)
 const isProcessing = ref(false)
 const compressionOptions = ref({
   maxSizeMB: 0.5,
@@ -32,25 +31,7 @@ const compressionOptions = ref({
   alwaysKeepResolution: true
 })
 
-function handleDragEnter(e: DragEvent) {
-  e.preventDefault()
-  isDragOver.value = true
-}
-
-function handleDragLeave(e: DragEvent) {
-  e.preventDefault()
-  isDragOver.value = false
-}
-
-function handleDragOver(e: DragEvent) {
-  e.preventDefault()
-}
-
-async function handleDrop(e: DragEvent) {
-  e.preventDefault()
-  isDragOver.value = false
-  
-  const files = Array.from(e.dataTransfer?.files || [])
+async function handleDropZoneFiles(files: File[]) {
   const imageFiles = files.filter(file => file.type.startsWith('image/'))
   
   if (imageFiles.length === 0) {
@@ -58,17 +39,6 @@ async function handleDrop(e: DragEvent) {
   }
 
   await processImages(imageFiles)
-}
-
-async function handleFileInput(e: Event) {
-  const target = e.target as HTMLInputElement
-  const files = Array.from(target.files || [])
-  
-  if (files.length === 0) {
-    return
-  }
-
-  await processImages(files)
 }
 
 async function processImages(files: File[]) {
@@ -177,36 +147,16 @@ function removeImage(imageId: string) {
 
     </div>
 
-    <div 
-      class="border-2 border-dashed border-gray-300 dark:border-gray-600 rounded-lg p-8 mb-6 text-center transition-colors"
-      :class="{ 'border-primary-500 bg-primary-50 dark:bg-primary-900/20': isDragOver }"
-      @dragenter="handleDragEnter"
-      @dragleave="handleDragLeave"
-      @dragover="handleDragOver"
-      @drop="handleDrop"
-    >
-      <div class="mb-4">
-        <svg class="w-12 h-12 mx-auto text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
-        </svg>
-      </div>
-      <p class="text-lg mb-2">Drag and drop images here</p>
-      <p class="text-sm text-gray-500 mb-4">or</p>
-      
-      <label for="file-upload" class="cursor-pointer">
-        <UButton as="span">
-          Choose Files
-        </UButton>
-        <input 
-          id="file-upload"
-          type="file" 
-          multiple 
-          accept="image/*" 
-          class="hidden"
-          @change="handleFileInput"
-        >
-      </label>
-    </div>
+    <FileDropZone 
+      accept="image/*" 
+      :multiple="true"
+      icon="image"
+      title="Drag and drop images here"
+      button-text="Choose Files"
+      @drop="handleDropZoneFiles"
+      @input="handleDropZoneFiles"
+      class="mb-6"
+    />
 
     <div v-if="isProcessing" class="text-center mb-6">
       <div class="inline-flex items-center">
