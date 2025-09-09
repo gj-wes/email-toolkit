@@ -126,97 +126,13 @@ async function extractBrowserViewUrl(file: File): Promise<string> {
   try {
     const text = await file.text()
     
-    // Try different patterns to find the HTML part of the email
-    let htmlMatch = text.match(/Content-Type:\s*text\/html[\s\S]*?\n\n([\s\S]*?)(?=\n--|\n\r\n--|\r\n--|\Z)/i)
-    
-    // Alternative pattern for different email structures
-    if (!htmlMatch) {
-      htmlMatch = text.match(/Content-Type:\s*text\/html[\s\S]*?\n\r?\n([\s\S]*?)(?=--|\Z)/i)
-    }
-    
-    // Even more flexible pattern
-    if (!htmlMatch) {
-      htmlMatch = text.match(/text\/html[\s\S]*?\n\r?\n([\s\S]*?)(?=--|\Z)/i)
-    }
-    
-    // Look for any HTML-like content
-    if (!htmlMatch) {
-      const hasHtmlTags = /<html|<body|<table|<div|<a\s+href/i.test(text)
-      
-      if (hasHtmlTags) {
-        // Find the section that contains HTML
-        const htmlSectionMatch = text.match(/([\s\S]*?<[\s\S]*>[\s\S]*)/i)
-        if (htmlSectionMatch && htmlSectionMatch[1]) {
-          htmlMatch = [text, htmlSectionMatch[1]]
-        }
-      }
-    }
-    
-    if (!htmlMatch || !htmlMatch[1]) {
-      return ''
-    }
-    
-    let htmlContent = htmlMatch[1]
-    
-    // Always decode quoted-printable since it might be present even without explicit header
-    htmlContent = decodeQuotedPrintable(htmlContent)
-    
-    // Look for "view email in browser" link specifically in the footer structure
-    // Target: <td style="padding-top: 15px;"> ... <p> ... <a href="...">View email in browser</a>
-    const specificStructureRegex = /<td[^>]*padding-top:\s*15px[^>]*>[\s\S]*?<p[^>]*>[\s\S]*?<a[^>]*href\s*=\s*["']([^"']*?)["'][^>]*>[\s\S]*?view\s+email\s+in\s+browser[\s\S]*?<\/a>/gi
-    const specificMatch = specificStructureRegex.exec(htmlContent)
-    
-    if (specificMatch && specificMatch[1]) {
-      let url = specificMatch[1]
-      url = url.replace(/=3D/g, '=').replace(/=\r?\n/g, '')
-      return url
-    }
-    
-    // Fallback: Look for "view email in browser" link (case insensitive) but more specific
-    const linkRegex = /<a[^>]*href\s*=\s*["']([^"']*?)["'][^>]*>[\s\S]*?view\s+email\s+in\s+browser[\s\S]*?<\/a>/gi
-    const match = linkRegex.exec(htmlContent)
+    const regex = /<a href=3D"([^"]*?)"[^>]*>.*?View email in browser.*?<\/a>/gi
+    const match = regex.exec(text)
     
     if (match && match[1]) {
-      // Clean up any remaining encoded characters in the URL
       let url = match[1]
-      // Handle any remaining encoded characters that might be in URLs
       url = url.replace(/=3D/g, '=').replace(/=\r?\n/g, '')
       return url
-    }
-    
-    // Another fallback: try to find any link that contains the text even if regex fails
-    const simpleMatch = htmlContent.match(/href\s*=\s*["']([^"']*?)["'][^>]*>[\s\S]*?view\s+email\s+in\s+browser/gi)
-    
-    if (simpleMatch) {
-      const urlMatch = simpleMatch[0].match(/href\s*=\s*["']([^"']*?)["']/i)
-      if (urlMatch && urlMatch[1]) {
-        let url = urlMatch[1]
-        url = url.replace(/=3D/g, '=').replace(/=\r?\n/g, '')
-        return url
-      }
-    }
-    
-    // Last resort: search the entire email text for the link
-    const fullTextHasView = /view\s+email\s+in\s+browser/gi.test(text)
-    
-    if (fullTextHasView) {
-      const fullTextDecoded = decodeQuotedPrintable(text)
-      
-      // Try to find the link in the full decoded text using the specific structure first
-      const fullTextSpecificRegex = /<td[^>]*padding-top:\s*15px[^>]*>[\s\S]*?<p[^>]*>[\s\S]*?<a[^>]*href\s*=\s*["']([^"']*?)["'][^>]*>[\s\S]*?view\s+email\s+in\s+browser[\s\S]*?<\/a>/gi
-      let fullTextMatch = fullTextSpecificRegex.exec(fullTextDecoded)
-      
-      // If specific structure not found, try general approach
-      if (!fullTextMatch) {
-        const fullTextLinkRegex = /<a[^>]*href\s*=\s*["']([^"']*?)["'][^>]*>[\s\S]*?view\s+email\s+in\s+browser[\s\S]*?<\/a>/gi
-        fullTextMatch = fullTextLinkRegex.exec(fullTextDecoded)
-      }
-      
-      if (fullTextMatch && fullTextMatch[1]) {
-        let url = fullTextMatch[1]
-        url = url.replace(/=3D/g, '=').replace(/=\r?\n/g, '')
-        return url
-      }
     }
     
     return ''
@@ -224,14 +140,6 @@ async function extractBrowserViewUrl(file: File): Promise<string> {
     console.error('💥 Error extracting browser view URL:', error)
     return ''
   }
-}
-
-function decodeQuotedPrintable(text: string): string {
-  return text
-    .replace(/=\r?\n/g, '') // Remove soft line breaks
-    .replace(/=([0-9A-F]{2})/gi, (match, hex) => {
-      return String.fromCharCode(parseInt(hex, 16))
-    })
 }
 
 async function followRedirect(url: string): Promise<string> {
